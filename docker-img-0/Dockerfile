@@ -115,6 +115,7 @@ RUN pyenv-latest install  ;
 RUN curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash;
 
 # add StaticSitesClient binary
+
 ENV    STATIC_SITES_BINARY  "https://swalocaldeploy.azureedge.net/downloads/1.0.020981/linux/StaticSitesClient"
 # RUN echo "export STATIC_SITES_BINARY_VERSION=$(echo $STATIC_SITES_BINARY | grep  -o  -E '[0-9].+[0-9]+')" >> /root/.bashrc
 ENV   STATIC_SITES_BINARY_VERSION 1.0.020981
@@ -134,5 +135,15 @@ RUN chmod +x /etc/profile.d/01-custom-docker-setup.sh
 
 # AWS
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"; \
-    unzip awscliv2.zip; \
+    unzip awscliv2.zip;rm awscliv2.zip; \
      ./aws/install
+
+# Postgres
+
+# RUN apt-get -y update && DEBIAN_FRONTEND=noninteractive; \
+# RUN  apt-get  -yq install postgresql
+
+RUN sudo DEBIAN_FRONTEND=noninteractive apt-get -y install tzdata;\
+    apt-get install -yq postgresql
+
+

@@ -23,6 +23,16 @@
         "panel": "shared",
       },
     },
+    {
+      "label": "docker: run interactive shell on image",
+      "type": "shell",
+      "command": "docker run -it  windmillcode/${input:docker_image_name}:${input:docker_image_tag}",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+      },
+    },
   ],
   "inputs": [
     {
@@ -42,6 +52,7 @@
       "id": "docker_image_tag",
       "description": "the version of the docker image",
       "type": "promptString",
+      "default": "0.0.2"
     },
   ]
 }
