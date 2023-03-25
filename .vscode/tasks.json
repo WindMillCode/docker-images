@@ -1,0 +1,48 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    
+    {
+      "label": "docker: build docker image",
+      "type": "shell",
+      "command": "docker build -t windmillcode/${input:docker_image_name}:${input:docker_image_tag} .\\${input:docker_image_location}",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+      },
+
+    },
+    {
+      "label": "docker: push docker image",
+      "type": "shell",
+      "command": "docker push  windmillcode/${input:docker_image_name}:${input:docker_image_tag}",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+      },
+      "dependsOn":"docker: build docker image"
+    },
+  ],
+  "inputs": [
+    {
+      "id": "docker_image_location",
+      "description": "the location of the docker image",
+      "type": "pickString",
+      "options": ["docker-img-0"],
+      "default": "docker-img-0"
+    },
+    {
+      "id": "docker_image_name",
+      "description": "the name of the docker image",
+      "type": "promptString",
+      "default": "docker-img-0"
+    },
+    {
+      "id": "docker_image_tag",
+      "description": "the version of the docker image",
+      "type": "promptString",
+    },
+  ]
+}
