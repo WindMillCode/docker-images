@@ -130,20 +130,27 @@ RUN mkdir -p $(dirname $SWA_CLI_DEPLOY_BINARY) && touch $SWA_CLI_DEPLOY_BINARY;\
     echo '{"metadata":   {"version": "stable","buildId": "'$STATIC_SITES_BINARY_VERSION'","publishDate": "2022-09-29T17:37:34.4094014Z","files": {"linux-x64": {"url": "https://swalocaldeploy.azureedge.net/downloads/1.0.020981/linux/StaticSitesClient","sha": "e55db21d0720a12098804559152303e66846bdd94c13a30b30be29a0fc9ae366"},            "win-x64": {        "url": "https://swalocaldeploy.azureedge.net/downloads/1.0.020981/windows/StaticSitesClient.exe",        "sha": "4e4eb72aef26641e236c24929c822500e956bda099ca78054112cadf20261107"      },      "osx-x64": {        "url": "https://swalocaldeploy.azureedge.net/downloads/1.0.020981/macOS/StaticSitesClient",        "sha": "e0f2ae7ec297510a1b3b9332c0dc0dd962a51adb8ea13cd4f3746d79fc24a7e9"      }    }  },    "binary":"'$HOME'/.swa/deploy/'$STATIC_SITES_BINARY_VERSION'/StaticSitesClient",    "checksum":"'$STATIC_SITES_BINARY_CHECKSUM'"}' >> $STATIC_SITES_BINARY_JSON;
 
 
-COPY 01-custom-docker-setup.sh /etc/profile.d/01-custom-docker-setup.sh
-RUN chmod +x /etc/profile.d/01-custom-docker-setup.sh
+# Postgres
+RUN sudo DEBIAN_FRONTEND=noninteractive apt-get -y install tzdata;\
+    apt-get install -yq postgresql
 
 # AWS
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"; \
     unzip awscliv2.zip;rm awscliv2.zip; \
      ./aws/install
 
-# Postgres
+COPY 01-custom-docker-setup.sh /etc/profile.d/01-custom-docker-setup.sh
+RUN chmod +x /etc/profile.d/01-custom-docker-setup.sh
 
-# RUN apt-get -y update && DEBIAN_FRONTEND=noninteractive; \
-# RUN  apt-get  -yq install postgresql
+## AWS EB CLI
+RUN git clone https://github.com/aws/aws-elastic-beanstalk-cli-setup.git; \
+    . /etc/profile.d/01-custom-docker-setup.sh; \
+    pip install virtualenv;\
+    python ./aws-elastic-beanstalk-cli-setup/scripts/ebcli_installer.py;
 
-RUN sudo DEBIAN_FRONTEND=noninteractive apt-get -y install tzdata;\
-    apt-get install -yq postgresql
+ENV PATH /root/.ebcli-virtual-env/executables:$PATH
+
+
+
 
 
