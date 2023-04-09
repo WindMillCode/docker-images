@@ -8,3 +8,6 @@ has postgressql
 
 v 0.0.4
 aws eb cli is availlble on command line
+
+v0.0.5
+gcloud is available
