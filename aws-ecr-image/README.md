@@ -17,3 +17,7 @@ yarn is available
 
 v0.0.7
 mysql is available
+
+v0.0.8
+docker is available
+

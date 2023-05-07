@@ -52,7 +52,7 @@
       "id": "docker_image_tag",
       "description": "the version of the docker image",
       "type": "promptString",
-      "default": "0.0.2"
+      "default": "0.0.8"
     },
   ]
 }
