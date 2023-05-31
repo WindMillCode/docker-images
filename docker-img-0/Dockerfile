@@ -55,7 +55,7 @@ RUN chmod -R 777 /usr/local/rbenv; \
 
 
 
-USER root
+USER root\
 WORKDIR /
 
 

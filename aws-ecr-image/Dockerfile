@@ -49,11 +49,8 @@ RUN groupadd -g 1000 ubuntu && useradd -d /home/ubuntu -s /bin/bash \
     -m ubuntu -u 1000 -g 1000
 RUN exec $SHELL
 
-
 RUN chmod -R 777 /usr/local/rbenv; \
     chmod -R 777 /root/.nvm;
-
-
 
 USER root
 WORKDIR /
