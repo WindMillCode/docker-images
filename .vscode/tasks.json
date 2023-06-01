@@ -11,7 +11,7 @@
         "reveal": "always",
         "panel": "shared",
       },
-
+      
     },
     {
       "label": "docker: push docker image",
@@ -39,7 +39,7 @@
       "id": "docker_image_location",
       "description": "the location of the docker image",
       "type": "pickString",
-      "options": ["docker-img-0"],
+      "options": ["docker-img-0","jabba-image"],
       "default": "docker-img-0"
     },
     {
@@ -52,7 +52,7 @@
       "id": "docker_image_tag",
       "description": "the version of the docker image",
       "type": "promptString",
-      "default": "0.0.8"
+      "default": "0.0.1"
     },
   ]
 }
